@@ -1,0 +1,30 @@
+
+##Part 3: Joins and Groups
+##Directions: Write a sql query or sql queries that can answer the following questions
+
+#What is each pokemon's primary type?
+SELECT t.name, p.name FROM types AS t JOIN pokemons AS p on t.id = p.primary_type;
+
+#What is Rufflet's secondary type?
+SELECT p.name, t.name FROM pokemons AS p JOIN types AS t ON p.secondary_type = t.id WHERE p.name = 'Rufflet';
+#Flying
+
+#What are the names of the pokemon that belong to the trainer with trainerID 303?
+SELECT p.name from pokemons AS p INNER JOIN pokemon_trainer AS pt on p.id = pt.pokemon_id WHERE trainerID = 303;
+#Wailord and Vileplume
+
+#How many pokemon have a secondary type Poison
+SELECT COUNT(*) FROM pokemons WHERE secondary_type = 7;
+#31 secondary type poison
+
+#What are all the primary types and how many pokemon have that type?
+SELECT t.name, COUNT(*) FROM types AS t JOIN pokemons AS p ON t.id = p.primary_type GROUP BY t.name;
+
+#How many pokemon at level 100 does each trainer with at least one level 100 pokemone have? (Hint: your query should not display a trainer)
+SELECT COUNT(pokemon_id) from pokemon_trainer WHERE pokelevel = 100 GROUP BY trainerID;
+#194 pokemons
+
+
+#How many pokemon only belong to one trainer and no other?
+SELECT COUNT(pokemon_id), p.name from pokemon_trainer pt JOIN pokemons p ON pt.pokemon_id = p.id group by pt.pokemon_id HAVING COUNT(trainerID) = 1;
+#5 pokemons

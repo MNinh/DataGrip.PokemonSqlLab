@@ -1,0 +1,19 @@
+##Part 4: Final Report
+##irections: Write a query that returns the following collumns:
+
+##Pokemon Name	Trainer Name	Level	Primary Type	Secondary Type
+##Pokemon's name	Trainer's name	Current Level	Primary Type Name	Secondary Type Name
+##Sort the data by finding out which trainer has the strongest pokemon so that this will act as a ranking of
+##strongest to weakest trainer. You may interpret strongest in whatever way you want,
+##but you will have to explain your decision.
+
+SELECT (maxhp + attack + defense + spatk + spdef + speed) AS TotalStat, p.name AS "Pokemon Name", t.trainername AS "Trainer Name", pt.pokelevel AS "Level", ptype.name AS "Primary Type", stype.name AS "Secondary Type"
+FROM pokemons p JOIN pokemon_trainer pt ON p.id = pt.pokemon_id
+JOIN trainers t ON pt.trainerID = t.trainerID
+JOIN types ptype ON p.primary_type = ptype.id
+JOIN types stype ON p.secondary_type = stype.id
+ORDER BY TotalStat desc;
+
+
+#I added the total offense stats and defense stats to get the overall strongest pokemon. I only chose stats that will
+#affect how the pokemon battles one another.
